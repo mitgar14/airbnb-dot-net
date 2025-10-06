@@ -1,0 +1,857 @@
+{
+	"info": {
+		"_postman_id": "a3b1c7a1-1b24-4dab-9bca-1663902aa5d6",
+		"name": "Airbnb .NET - Microservices",
+		"description": "Colección completa para los 3 microservicios del proyecto Airbnb .NET (Usuarios, Airbnbs y Reservas)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33335468"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"item": [
+		{
+			"name": "Usuarios API (Puerto 5001)",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:{{usuarios_port}}/api/Usuarios",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{usuarios_port}}",
+							"path": [
+								"api",
+								"Usuarios"
+							]
+						},
+						"description": "Obtiene la lista completa de usuarios registrados"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:{{usuarios_port}}/api/Usuarios/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{usuarios_port}}",
+							"path": [
+								"api",
+								"Usuarios",
+								"1"
+							]
+						},
+						"description": "Obtiene un usuario específico por su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Validate User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:{{usuarios_port}}/api/Usuarios/validation?email=juan@example.com&password=password123",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{usuarios_port}}",
+							"path": [
+								"api",
+								"Usuarios",
+								"validation"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "juan@example.com",
+									"description": "Email del usuario"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"description": "Contraseña del usuario"
+								}
+							]
+						},
+						"description": "Valida las credenciales de un usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": 1,\n  \"name\": \"Juan Pérez\",\n  \"role\": \"Cliente\",\n  \"password\": \"password123\",\n  \"email\": \"juan@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}:{{usuarios_port}}/api/Usuarios",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{usuarios_port}}",
+							"path": [
+								"api",
+								"Usuarios"
+							]
+						},
+						"description": "Registra un nuevo usuario en el sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Host User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": 2,\n  \"name\": \"María García\",\n  \"role\": \"Host\",\n  \"password\": \"password123\",\n  \"email\": \"maria@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}:{{usuarios_port}}/api/Usuarios",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{usuarios_port}}",
+							"path": [
+								"api",
+								"Usuarios"
+							]
+						},
+						"description": "Registra un nuevo usuario con rol Host"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Admin User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": 3,\n  \"name\": \"Admin User\",\n  \"role\": \"Admin\",\n  \"password\": \"admin123\",\n  \"email\": \"admin@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}:{{usuarios_port}}/api/Usuarios",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{usuarios_port}}",
+							"path": [
+								"api",
+								"Usuarios"
+							]
+						},
+						"description": "Registra un nuevo usuario con rol Admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Login as Cliente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"// Verificar si la respuesta es exitosa y contiene el token",
+									"if (jsonData.success && jsonData.data && jsonData.data.token) {",
+									"    pm.environment.set(\"token_cliente\", jsonData.data.token);",
+									"    pm.environment.set(\"token\", jsonData.data.token);",
+									"    console.log(\"✅ Token Cliente JWT guardado exitosamente en el environment\");",
+									"    console.log(\"Token:\", jsonData.data.token.substring(0, 50) + \"...\");",
+									"} else {",
+									"    console.log(\"❌ No se pudo obtener el token de la respuesta\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"juan@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}:{{usuarios_port}}/api/Usuarios/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{usuarios_port}}",
+							"path": [
+								"api",
+								"Usuarios",
+								"login"
+							]
+						},
+						"description": "Autentica un usuario Cliente y retorna un token JWT"
+					},
+					"response": []
+				},
+				{
+					"name": "Login as Host",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"// Verificar si la respuesta es exitosa y contiene el token",
+									"if (jsonData.success && jsonData.data && jsonData.data.token) {",
+									"    pm.environment.set(\"token_host\", jsonData.data.token);",
+									"    pm.environment.set(\"token\", jsonData.data.token);",
+									"    console.log(\"✅ Token Host JWT guardado exitosamente en el environment\");",
+									"    console.log(\"Token:\", jsonData.data.token.substring(0, 50) + \"...\");",
+									"} else {",
+									"    console.log(\"❌ No se pudo obtener el token de la respuesta\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"maria@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}:{{usuarios_port}}/api/Usuarios/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{usuarios_port}}",
+							"path": [
+								"api",
+								"Usuarios",
+								"login"
+							]
+						},
+						"description": "Autentica un usuario Host y retorna un token JWT"
+					},
+					"response": []
+				},
+				{
+					"name": "Login as Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"// Verificar si la respuesta es exitosa y contiene el token",
+									"if (jsonData.success && jsonData.data && jsonData.data.token) {",
+									"    pm.environment.set(\"token_admin\", jsonData.data.token);",
+									"    pm.environment.set(\"token\", jsonData.data.token);",
+									"    console.log(\"✅ Token Admin JWT guardado exitosamente en el environment\");",
+									"    console.log(\"Token:\", jsonData.data.token.substring(0, 50) + \"...\");",
+									"} else {",
+									"    console.log(\"❌ No se pudo obtener el token de la respuesta\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}:{{usuarios_port}}/api/Usuarios/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{usuarios_port}}",
+							"path": [
+								"api",
+								"Usuarios",
+								"login"
+							]
+						},
+						"description": "Autentica un usuario Admin y retorna un token JWT"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Juan Carlos Pérez Actualizado\",\n  \"email\": \"juancarlos.updated@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}:{{usuarios_port}}/api/Usuarios/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{usuarios_port}}",
+							"path": [
+								"api",
+								"Usuarios",
+								"1"
+							]
+						},
+						"description": "Actualiza un usuario (actualización parcial - solo campos enviados)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:{{usuarios_port}}/api/Usuarios/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{usuarios_port}}",
+							"path": [
+								"api",
+								"Usuarios",
+								"1"
+							]
+						},
+						"description": "Elimina un usuario del sistema"
+					},
+					"response": []
+				}
+			],
+			"description": "Gestión de usuarios y autenticación"
+		},
+		{
+			"name": "Airbnbs API (Puerto 5002)",
+			"item": [
+				{
+					"name": "Get All Airbnbs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:{{airbnbs_port}}/api/Airbnbs",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{airbnbs_port}}",
+							"path": [
+								"api",
+								"Airbnbs"
+							]
+						},
+						"description": "Obtiene la lista completa de propiedades Airbnb"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Airbnb by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:{{airbnbs_port}}/api/Airbnbs/id/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{airbnbs_port}}",
+							"path": [
+								"api",
+								"Airbnbs",
+								"id",
+								"1"
+							]
+						},
+						"description": "Obtiene una propiedad específica por su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Airbnbs by Host ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:{{airbnbs_port}}/api/Airbnbs/hostId/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{airbnbs_port}}",
+							"path": [
+								"api",
+								"Airbnbs",
+								"hostId",
+								"2"
+							]
+						},
+						"description": "Obtiene todas las propiedades de un anfitrión específico (María García - Host)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Airbnbs by Room Type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:{{airbnbs_port}}/api/Airbnbs/roomType/Private room",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{airbnbs_port}}",
+							"path": [
+								"api",
+								"Airbnbs",
+								"roomType",
+								"Private room"
+							]
+						},
+						"description": "Filtra propiedades por tipo de habitación (Entire home/apt, Private room, Shared room)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Airbnb",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"1\",\n  \"name\": \"Beautiful Apartment in Manhattan\",\n  \"hostId\": \"2\",\n  \"hostName\": \"María García\",\n  \"neighbourhoodGroup\": \"Manhattan\",\n  \"neighbourhood\": \"Midtown\",\n  \"latitude\": \"40.7580\",\n  \"longitude\": \"-73.9855\",\n  \"roomType\": \"Entire home/apt\",\n  \"price\": \"150\",\n  \"minimumNights\": \"2\",\n  \"numberOfReviews\": \"10\",\n  \"rating\": \"4.5\",\n  \"rooms\": \"2\",\n  \"beds\": \"2\",\n  \"bathrooms\": \"1\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}:{{airbnbs_port}}/api/Airbnbs",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{airbnbs_port}}",
+							"path": [
+								"api",
+								"Airbnbs"
+							]
+						},
+						"description": "Registra una nueva propiedad Airbnb"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Airbnb",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": \"175\",\n  \"rating\": \"4.7\",\n  \"numberOfReviews\": \"15\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}:{{airbnbs_port}}/api/Airbnbs/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{airbnbs_port}}",
+							"path": [
+								"api",
+								"Airbnbs",
+								"1"
+							]
+						},
+						"description": "Actualiza la información de una propiedad existente (actualización parcial - solo campos enviados)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Airbnb",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:{{airbnbs_port}}/api/Airbnbs/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{airbnbs_port}}",
+							"path": [
+								"api",
+								"Airbnbs",
+								"1"
+							]
+						},
+						"description": "Elimina una propiedad del sistema"
+					},
+					"response": []
+				}
+			],
+			"description": "Gestión de propiedades Airbnb"
+		},
+		{
+			"name": "Reservas API (Puerto 5003)",
+			"item": [
+				{
+					"name": "Get All Reservations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:{{reservas_port}}/api/Reservas",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{reservas_port}}",
+							"path": [
+								"api",
+								"Reservas"
+							]
+						},
+						"description": "Obtiene la lista completa de reservas"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reservations by User ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:{{reservas_port}}/api/Reservas/userID/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{reservas_port}}",
+							"path": [
+								"api",
+								"Reservas",
+								"userID",
+								"1"
+							]
+						},
+						"description": "Obtiene todas las reservas de un usuario específico"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reservation by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:{{reservas_port}}/api/Reservas/reservationID/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{reservas_port}}",
+							"path": [
+								"api",
+								"Reservas",
+								"reservationID",
+								"1"
+							]
+						},
+						"description": "Obtiene una reserva específica por su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reservations by Host ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:{{reservas_port}}/api/Reservas/hostID/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{reservas_port}}",
+							"path": [
+								"api",
+								"Reservas",
+								"hostID",
+								"2"
+							]
+						},
+						"description": "Obtiene todas las reservas de propiedades de un anfitrión específico (María García - Host)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Reservation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clientId\": \"1\",\n  \"airbnbId\": \"1\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}:{{reservas_port}}/api/Reservas",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{reservas_port}}",
+							"path": [
+								"api",
+								"Reservas"
+							]
+						},
+						"description": "Crea una nueva reserva (valida que el usuario y la propiedad existan)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Reservation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:{{reservas_port}}/api/Reservas/reservationID/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{reservas_port}}",
+							"path": [
+								"api",
+								"Reservas",
+								"reservationID",
+								"1"
+							]
+						},
+						"description": "Elimina una reserva del sistema"
+					},
+					"response": []
+				}
+			],
+			"description": "Gestión de reservas"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"console.log(\"=================================\");",
+					"console.log(\"Base URL: \" + pm.environment.get(\"base_url\"));",
+					"console.log(\"Usuarios Port: \" + pm.environment.get(\"usuarios_port\"));",
+					"console.log(\"Airbnbs Port: \" + pm.environment.get(\"airbnbs_port\"));",
+					"console.log(\"Reservas Port: \" + pm.environment.get(\"reservas_port\"));",
+					"console.log(\"=================================\");"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Validar que el código de respuesta es exitoso",
+					"pm.test(\"Status code is successful\", function () {",
+					"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+					"});",
+					"",
+					"// Validar tiempo de respuesta",
+					"pm.test(\"Response time is less than 5000ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+					"});",
+					"",
+					"// Validar que la respuesta es JSON (excepto para 204)",
+					"if (pm.response.code !== 204) {",
+					"    pm.test(\"Response is JSON\", function () {",
+					"        pm.response.to.be.json;",
+					"    });",
+					"}"
+				]
+			}
+		}
+	]
+}
