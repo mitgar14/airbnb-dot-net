@@ -4,15 +4,15 @@
 
 ## 📑 Tabla de Contenidos
 
-- [Introducción](#introducción)
-- [Requisitos Previos](#requisitos-previos)
-- [Importar la Colección](#importar-la-colección)
-- [Configurar Environment](#configurar-environment)
-- [Estructura de la Colección](#estructura-de-la-colección)
-- [Gestión Automática de Tokens](#gestión-automática-de-tokens)
-- [Scripts Pre-request y Tests](#scripts-pre-request-y-tests)
-- [Troubleshooting](#troubleshooting)
-- [Tips y Mejores Prácticas](#tips-y-mejores-prácticas)
+- [Introducción](#-introducción)
+- [Requisitos Previos](#-requisitos-previos)
+- [Importar la Colección](#-importar-la-colección)
+- [Configurar Environment](#-configurar-environment)
+- [Estructura de la Colección](#-estructura-de-la-colección)
+- [Gestión Automática de Tokens](#-gestión-automática-de-tokens)
+- [Scripts Pre-request y Tests](#-scripts-pre-request-y-tests)
+- [Troubleshooting](#-troubleshooting)
+- [Tips y Mejores Prácticas](#-tips-y-mejores-prácticas)
 
 ## 📖 Introducción
 

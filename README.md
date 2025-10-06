@@ -10,20 +10,20 @@
 
 ## 📋 Tabla de Contenidos
 
-- [Descripción General](#descripción-general)
-- [Características Principales](#características-principales)
-- [Stack Tecnológico](#stack-tecnológico)
-- [Arquitectura](#arquitectura)
-- [Inicio Rápido](#inicio-rápido)
-  - [Requisitos Previos](#requisitos-previos)
-  - [Instalación](#instalación)
-  - [Configuración](#configuración)
-  - [Ejecución](#ejecución)
-- [Endpoints de las APIs](#endpoints-de-las-apis)
-- [Testing](#testing)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Troubleshooting](#troubleshooting)
-- [Documentación Adicional](#documentación-adicional)
+- [Descripción General](#-descripción-general)
+- [Características Principales](#-características-principales)
+- [Stack Tecnológico](#-stack-tecnológico)
+- [Arquitectura](#-arquitectura)
+- [Inicio Rápido](#-inicio-rápido)
+  - [Requisitos Previos](#-requisitos-previos)
+  - [Instalación](#-instalación)
+  - [Configuración](#-configuración)
+  - [Ejecución](#-ejecución)
+- [Endpoints de las APIs](#-endpoints-de-las-apis)
+- [Testing](#-testing)
+- [Estructura del Proyecto](#-estructura-del-proyecto)
+- [Troubleshooting](#-troubleshooting)
+- [Documentación Adicional](#-documentación-adicional)
 
 ## 📖 Descripción General
 
